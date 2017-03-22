@@ -51,3 +51,19 @@
     -fx-background-position: center center;
     }
 /* fine test (non rompere il cazzo) */
+
+/* START - Remove background in tab-pane */
+.tab-pane *.tab-header-background {
+    -fx-background-color: transparent;
+   }
+/* END - Remove background in tab-pane */
+
+/*test */
+
+#dettaglioPane {
+	-fx-background-image: url("test.jpg");
+    -fx-background-repeat: repeat;   
+    -fx-background-size: 940 500;
+    -fx-background-position: center center;
+    }
+/* fine test (non rompere il cazzo) */
