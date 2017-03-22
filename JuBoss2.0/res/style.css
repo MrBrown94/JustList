@@ -41,3 +41,13 @@
     -fx-effect: dropshadow( gaussian , #a30000 , 0,0,0,2 );
 }
 /* END - Button Style GUI */
+
+/*test */
+
+#tab {
+	-fx-background-image: url("bg.png");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 940 500;
+    -fx-background-position: center center;
+    }
+/* fine test (non rompere il cazzo) */
