@@ -1,4 +1,4 @@
-package ju.boss;
+package justList;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;

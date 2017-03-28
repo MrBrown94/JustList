@@ -1,4 +1,4 @@
-package juBoss;
+package justList;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -9,7 +9,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import varie.Splash;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
@@ -28,7 +27,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.UIManager;
 
-public class Window2 extends JFrame {
+public class Lista extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -46,7 +45,7 @@ public class Window2 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Window2 frame = new Window2();
+					Lista frame = new Lista();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +57,7 @@ public class Window2 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Window2(boolean edit) {
+	public Lista(boolean edit) {
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(963, 473);
@@ -113,7 +112,7 @@ public class Window2 extends JFrame {
 				
 				if(!(formRicerca.getText().equals("Ricerca") || formRicerca.getText().equals(""))){
 					
-					Search search = new Search(tbIngrosso, formRicerca);
+					//Search search = new Search(tbIngrosso, formRicerca);
 				}
 			}
 		});
@@ -150,15 +149,15 @@ public class Window2 extends JFrame {
 			
 					else{	
 							int index = (int)tbIngrosso.convertRowIndexToModel(tbIngrosso.getSelectedRow());
-							xmlEditFile xmlEdit = new xmlEditFile();
+							//xmlEditFile xmlEdit = new xmlEditFile();
 							
-							xmlEdit.deleteElement(index);
-							formRicerca.setText("Ricerca");
+							//xmlEdit.deleteElement(index);
+							//formRicerca.setText("Ricerca");
 							
 					//refresh ad ogni eliminazione
 							
 						//ricarica nell'array i dati dall' xml
-							Splash.preeUpdate();
+							//Splash.preeUpdate();
 						//ricrea la tabella usando i nuovi array
 							dettaglioSettings();
 							selected = false;
@@ -190,9 +189,9 @@ public class Window2 extends JFrame {
 						
 						//nuova instanza window1
 						
-						Window1 window1Edit  = new Window1(index);
+						//Window1 window1Edit  = new Window1(index);
 						//visualizzazione Window1Edit
-						window1Edit.setVisible(true);
+						//window1Edit.setVisible(true);
 						
 						selected = false;
 						
@@ -253,8 +252,8 @@ public class Window2 extends JFrame {
 		tbIngrosso.getColumnModel().getColumn(5).setPreferredWidth(10);
 	}
 	
-	public Window2() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(Window2.class.getResource("/icon.png")));
+	public Lista() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Lista.class.getResource("/icon.png")));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(963, 473);
 		Toolkit tk = getToolkit();
@@ -305,7 +304,7 @@ public class Window2 extends JFrame {
 				
 				if(!(formRicerca.getText().equals("Ricerca") || formRicerca.getText().equals(""))){
 					
-					Search search = new Search(tbIngrosso, formRicerca);
+					//Search search = new Search(tbIngrosso, formRicerca);
 				}
 			}
 		});
@@ -420,15 +419,17 @@ public class Window2 extends JFrame {
 	public void dettaglioSettings() {
 		
 		tbIngrosso.setAutoResizeMode(5);
-		tbIngrosso.setModel(new DefaultTableModel(
-		varie.Splash.NoIngrosso,
+		/*
+		 * tbIngrosso.setModel(new DefaultTableModel(
+		
+		elements,
 		new String[] {
 			"Denominazione", "Colore", "Paese d'origine", "Capacit\u00E0", "Dettaglio", "Disponibile"
 			}
 		) {
 		/**
 			 * 
-			 */
+			 
 			private static final long serialVersionUID = 1L;
 		@SuppressWarnings("rawtypes")
 		Class[] columnTypes = new Class[] {
@@ -442,12 +443,13 @@ public class Window2 extends JFrame {
 		       return false;
 		}
 		});
+		*/
 		tbIngrosso.setAutoCreateRowSorter(true);
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public void ingrossoSettings() {
-		
+		/*
 		tbIngrosso.setModel(new DefaultTableModel(
 		varie.Splash.NoDettaglio,
 		new String[] {
@@ -456,7 +458,7 @@ public class Window2 extends JFrame {
 		) {
 		/**
 		 * 
-		 */
+		
 		private static final long serialVersionUID = 1L;
 		
 		Class[] columnTypes = new Class[] {
@@ -471,6 +473,7 @@ public class Window2 extends JFrame {
 		       return false;
 		}
 		});
+		*/
 		tbIngrosso.setAutoCreateRowSorter(true);
 	}
 }
