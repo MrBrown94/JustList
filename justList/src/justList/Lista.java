@@ -173,6 +173,7 @@ public class Lista extends JFrame {
 	}
 	
 	
+	@SuppressWarnings("serial")
 	public void tableSettings(Object[][] elements) {
 		
 		tbIngrosso.setAutoResizeMode(5);
@@ -181,11 +182,15 @@ public class Lista extends JFrame {
 			elements,
 			new String[] {
 				"Descrizione", "Capacità", "Prezzo"
+			}) {
+			
+			public boolean isCellEditable(int row, int column) {       
+			       return false;
 			}
-		));
+			});
+		
 		tbIngrosso.getColumnModel().getColumn(0).setPreferredWidth(1200);
 		tbIngrosso.setRowHeight(40);
-
 	}
 }
 
