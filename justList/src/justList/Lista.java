@@ -37,7 +37,6 @@ public class Lista extends JFrame {
 	private JPanel lyTab;
 	private JTable tbIngrosso;
 	
-	static Object[][] tb;
 	/**
 	 * Launch the application.
 	 */
@@ -47,8 +46,8 @@ public class Lista extends JFrame {
 			public void run() {
 				try {
 					DbManager dbRead = new DbManager();
-					tb  = dbRead.getAllData();
-					Lista frame = new Lista();
+					Object[][] elements  = dbRead.getAllData();
+					Lista frame = new Lista(elements);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +56,7 @@ public class Lista extends JFrame {
 		});
 	}
 
-	public Lista() {
+	public Lista(Object[][] elements) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(963, 473);
 		Toolkit tk = getToolkit();
@@ -167,20 +166,19 @@ public class Lista extends JFrame {
 		gbc_tbIngrossoHead.gridy = 0;
 		lyTab.add(tbIngrossoHead, gbc_tbIngrossoHead);
 		
-		tableSettings();
+		tableSettings(elements);
 		formRicerca.setFocusable(false);
 		tbIngrosso.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
 
 	}
 	
 	
-	public void tableSettings() {
+	public void tableSettings(Object[][] elements) {
 		
 		tbIngrosso.setAutoResizeMode(5);
 		
 		tbIngrosso.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
+			elements,
 			new String[] {
 				"Descrizione", "Capacità", "Prezzo"
 			}
