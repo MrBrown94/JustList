@@ -35,7 +35,7 @@ public class Lista extends JFrame {
 	private JPanel lyTab;
 	private JTable tbIngrosso;
 	
-	Object elements[][];
+	static Object elements[][];
 	/**
 	 * Launch the application.
 	 */
@@ -44,6 +44,8 @@ public class Lista extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					DbManager dbRead = new DbManager();
+					elements = dbRead.getAllData();
 					Lista frame = new Lista();
 					frame.setVisible(true);
 				} catch (Exception e) {
