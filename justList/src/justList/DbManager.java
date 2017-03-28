@@ -93,24 +93,25 @@ public class DbManager {
 	}
 	
 	//Get Info Vini
-	public Object[][] getAllData() {
+	public Vector < Vector < Object >> getAllData() {
 		
-		Object[][] tbl = new Object[3][];
-		int count = 0;
+		Vector < Vector < Object >> dataVector = new Vector < Vector < Object >>();
 		
 		try {
 			st.execute("SELECT * FROM articoli");
 			rs = st.getResultSet();
 			
 			while (rs.next()){
-				tbl[0][count] = rs.getString(2); //Descrizione
-				tbl[1][count] = rs.getString(10); //Capacità
-	            tbl[2][count] = rs.getString(15); //Prezzo
-				count++;
+				
+				Vector < Object > data = new Vector < Object >();
+				
+	            data.add(rs.getString(2)); //Descrizione
+	            data.add(rs.getString(10)); //Quantità
+	            data.add(rs.getString(15)); //Prezzo
+	            dataVector.add (data);
 			}
 			
-			return tbl;
-			
+			return dataVector;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -122,7 +123,8 @@ public class DbManager {
 				e.printStackTrace();
 			}
 		}
-		return tbl;
+		
+		return dataVector;
     }
 	
 	

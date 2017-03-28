@@ -16,6 +16,8 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Vector;
+
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -35,7 +37,7 @@ public class Lista extends JFrame {
 	private JPanel lyTab;
 	private JTable tbIngrosso;
 	
-	static Object elements[][];
+	static Vector < Vector < Object >> dataVector = new Vector < Vector < Object >>();
 	/**
 	 * Launch the application.
 	 */
@@ -45,7 +47,7 @@ public class Lista extends JFrame {
 			public void run() {
 				try {
 					DbManager dbRead = new DbManager();
-					elements = dbRead.getAllData();
+					dataVector = dbRead.getAllData();
 					Lista frame = new Lista();
 					frame.setVisible(true);
 				} catch (Exception e) {
