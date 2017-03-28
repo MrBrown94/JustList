@@ -29,7 +29,8 @@ public class DbManager {
 			connection = DriverManager.getConnection("jdbc:ucanaccess://" + path);
 		
 			st = connection.createStatement();
-			insertData("a", "b", "c", "d", "15", "20", "15", "1,5", "FALSE");
+			
+			getAllData();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,7 +62,7 @@ public class DbManager {
 	    
 	    path = path.replaceAll("bin", "");
 	    path = path.replace("\\", "/");
-	    path += "db/db.accdb;memory=false";
+	    path += "db/db.mdb;memory=false";
 	}
 	
 	
@@ -69,7 +70,7 @@ public class DbManager {
 	public int countVini() {
 		
 		try {
-			st.execute("SELECT COUNT(*) FROM Vini");
+			st.execute("SELECT COUNT(*) FROM articoli");
 			rs = st.getResultSet();
 			
 			while (rs.next()) {
@@ -92,30 +93,23 @@ public class DbManager {
 	}
 	
 	//Get Info Vini
-	public void getAllData() {
+	public Object[][] getAllData() {
 		
-		Vector < Vector < Object >> dataVector = new Vector < Vector < Object >>();
+		Object[][] tbl = new Object[3][];
+		int count = 0;
 		
 		try {
-			st.execute("SELECT * FROM Vini");
+			st.execute("SELECT * FROM articoli");
 			rs = st.getResultSet();
 			
 			while (rs.next()){
-
-				Vector < Object > data = new Vector < Object >();getClass();
-				
-	            data.add(rs.getInt(1)); //ID
-	            data.add(rs.getString(2)); //Denominazione
-	            data.add(rs.getString(3)); //Colore
-	            data.add(rs.getString(4)); //Paese
-	            data.add(rs.getString(5)); //Regione
-	            data.add(rs.getString(6)); //Ingrosso
-	            data.add(rs.getString(7)); //Dettaglio
-	            data.add(rs.getString(8)); //Prezzo
-	            data.add(rs.getString(9)); //Capacità
-	            data.add(rs.getString(10)); //Disponibile
-	            dataVector.add (data);
+				tbl[0][count] = rs.getString(2); //Descrizione
+				tbl[1][count] = rs.getString(10); //Capacità
+	            tbl[2][count] = rs.getString(15); //Prezzo
+				count++;
 			}
+			
+			return tbl;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -128,28 +122,9 @@ public class DbManager {
 				e.printStackTrace();
 			}
 		}
+		return tbl;
     }
 	
-	
-	//Inserimento dati in DB con indice n+1
-	public void insertData(String denominazione, String colore, String paese, String regione, String ingrosso, String dettaglio, String prezzo, String capacita, String disponibile) {
-		
-		try {
-			st.executeUpdate("INSERT INTO Vini VALUES('" + countVini()+1 + "','" + denominazione + "','" + colore + "','" + paese + "','" + regione + "','" + ingrosso 
-					+ "','" + dettaglio + "','" + prezzo + "','" + capacita + "','"  + disponibile + "')");
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			
-			try {
-				st.close();
-				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-	}
 	
 	public static void main(String[] args) {
 	    
