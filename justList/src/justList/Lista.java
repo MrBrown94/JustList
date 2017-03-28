@@ -108,7 +108,7 @@ public class Lista extends JFrame {
 				
 				if(!(formRicerca.getText().equals("Ricerca") || formRicerca.getText().equals(""))){
 					
-					//Search search = new Search(tbIngrosso, formRicerca);
+					Search search = new Search(tbIngrosso, formRicerca);
 				}
 			}
 		});
@@ -183,8 +183,9 @@ public class Lista extends JFrame {
 				"Descrizione", "Capacità", "Prezzo"
 			}
 		));
-		tbIngrosso.getColumnModel().getColumn(0).setPreferredWidth(700);
-		
+		tbIngrosso.getColumnModel().getColumn(0).setPreferredWidth(1200);
+		tbIngrosso.setRowHeight(40);
+
 	}
 }
 
