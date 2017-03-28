@@ -37,7 +37,7 @@ public class Lista extends JFrame {
 	private JPanel lyTab;
 	private JTable tbIngrosso;
 	
-	static Vector < Vector < Object >> dataVector = new Vector < Vector < Object >>();
+	static Object[][] tb;
 	/**
 	 * Launch the application.
 	 */
@@ -47,7 +47,7 @@ public class Lista extends JFrame {
 			public void run() {
 				try {
 					DbManager dbRead = new DbManager();
-					dataVector = dbRead.getAllData();
+					tb  = dbRead.getAllData();
 					Lista frame = new Lista();
 					frame.setVisible(true);
 				} catch (Exception e) {
