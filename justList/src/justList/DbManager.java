@@ -30,8 +30,6 @@ public class DbManager {
 		
 			st = connection.createStatement();
 			
-			getAllData();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			
@@ -97,6 +95,7 @@ public class DbManager {
 		
 		Object[][] tb = new Object[countVini()][3];
 		int count = 0;
+		
 		try {
 			st.execute("SELECT * FROM articoli");
 			rs = st.getResultSet();
@@ -124,10 +123,4 @@ public class DbManager {
 		
 		return tb;
     }
-	
-	
-	public static void main(String[] args) {
-	    
-		DbManager test = new DbManager();
-	}
 }
