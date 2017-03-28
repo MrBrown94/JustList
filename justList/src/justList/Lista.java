@@ -25,6 +25,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import javax.swing.UIManager;
+import java.awt.Font;
 
 public class Lista extends JFrame {
 
@@ -33,7 +34,6 @@ public class Lista extends JFrame {
 	private JTextField formRicerca;
 	private JPanel lyTab;
 	private JTable tbIngrosso;
-	private JPanel buttonsBar;
 	
 	Object elements[][];
 	/**
@@ -66,13 +66,14 @@ public class Lista extends JFrame {
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{84, 741, 84, 0};
-		gbl_contentPane.rowHeights = new int[]{48, 42, 308, 0};
-		gbl_contentPane.columnWeights = new double[]{1.0, 26.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowHeights = new int[]{73, 308, 0};
+		gbl_contentPane.columnWeights = new double[]{1.0, 40.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		
 		formRicerca = new JTextField();
+		formRicerca.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		formRicerca.setToolTipText("Ricerca");
 		formRicerca.addFocusListener(new FocusAdapter() {
 			@Override
@@ -112,65 +113,18 @@ public class Lista extends JFrame {
 		formRicerca.setHorizontalAlignment(SwingConstants.LEFT);
 		formRicerca.setColumns(30);
 		GridBagConstraints gbc_formRicerca = new GridBagConstraints();
-		gbc_formRicerca.fill = GridBagConstraints.HORIZONTAL;
-		gbc_formRicerca.anchor = GridBagConstraints.SOUTH;
+		gbc_formRicerca.anchor = GridBagConstraints.WEST;
 		gbc_formRicerca.insets = new Insets(0, 0, 5, 5);
 		gbc_formRicerca.gridx = 1;
 		gbc_formRicerca.gridy = 0;
 		contentPane.add(formRicerca, gbc_formRicerca);
-		
-		buttonsBar = new JPanel();
-		buttonsBar.setLayout(null);
-		GridBagConstraints gbc_buttonsBar = new GridBagConstraints();
-		gbc_buttonsBar.insets = new Insets(0, 0, 5, 5);
-		gbc_buttonsBar.fill = GridBagConstraints.BOTH;
-		gbc_buttonsBar.gridx = 1;
-		gbc_buttonsBar.gridy = 1;
-		contentPane.add(buttonsBar, gbc_buttonsBar);
-		
-		JButton btnIngrosso = new JButton("Ingrosso");
-		JButton btnDettaglio = new JButton("Dettaglio");
-		
-		btnIngrosso.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				tableSettings();
-				tbIngrosso.getColumnModel().getColumn(0).setPreferredWidth(400);
-				tbIngrosso.getColumnModel().getColumn(5).setPreferredWidth(10);
-				
-				formRicerca.setText("Ricerca");
-				
-				btnIngrosso.setEnabled(false);
-				btnDettaglio.setEnabled(true);
-			}
-		});
-		btnIngrosso.setBounds(8, 5, 96, 25);
-		buttonsBar.add(btnIngrosso);
-		
-		btnDettaglio.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				tableSettings();
-				tbIngrosso.getColumnModel().getColumn(0).setPreferredWidth(400);
-				tbIngrosso.getColumnModel().getColumn(5).setPreferredWidth(10);
-				
-				formRicerca.setText("Ricerca");
-				
-				btnDettaglio.setEnabled(false);
-				btnIngrosso.setEnabled(true);
-			}
-		});
-		btnDettaglio.setBounds(120, 5, 100, 25);
-		buttonsBar.add(btnDettaglio);
 		
 		lyTab = new JPanel();
 		GridBagConstraints gbc_lyTab = new GridBagConstraints();
 		gbc_lyTab.insets = new Insets(0, 0, 0, 5);
 		gbc_lyTab.fill = GridBagConstraints.BOTH;
 		gbc_lyTab.gridx = 1;
-		gbc_lyTab.gridy = 2;
+		gbc_lyTab.gridy = 1;
 		contentPane.add(lyTab, gbc_lyTab);
 		GridBagLayout gbl_lyTab = new GridBagLayout();
 		gbl_lyTab.columnWidths = new int[]{657, 0};
@@ -180,6 +134,8 @@ public class Lista extends JFrame {
 		lyTab.setLayout(gbl_lyTab);
 		
 		tbIngrosso = new JTable();
+		tbIngrosso.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		tbIngrosso.getTableHeader().setFont( new Font( "Arial" , Font.BOLD, 30 ));
 		tbIngrosso.setForeground(UIManager.getColor("Button.disabled"));
 		tbIngrosso.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 	        public void valueChanged(ListSelectionEvent event) {
@@ -208,10 +164,8 @@ public class Lista extends JFrame {
 		lyTab.add(tbIngrossoHead, gbc_tbIngrossoHead);
 		
 		tableSettings();
-		btnDettaglio.setEnabled(false);
 		formRicerca.setFocusable(false);
 		tbIngrosso.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-		tbIngrosso.getColumnModel().getColumn(0).setPreferredWidth(700);
 
 	}
 	
@@ -221,26 +175,13 @@ public class Lista extends JFrame {
 		tbIngrosso.setAutoResizeMode(5);
 		
 		tbIngrosso.setModel(new DefaultTableModel(
-		
-		elements,
-		new String[] {
-			"Descrizione", "Quantità", "Prezzo"
+			new Object[][] {
+			},
+			new String[] {
+				"Descrizione", "Capacità", "Prezzo"
 			}
-		) {			  
-			 
-			private static final long serialVersionUID = 1L;
-		@SuppressWarnings("rawtypes")
-		Class[] columnTypes = new Class[] {
-			String.class, String.class, String.class, String.class, String.class, String.class
-		};
-		@SuppressWarnings("unchecked")
-		public Class getColumnClass(int columnIndex) {
-			return columnTypes[columnIndex];
-		}
-		public boolean isCellEditable(int row, int column) {       
-		       return false;
-		}
-		});
+		));
+		tbIngrosso.getColumnModel().getColumn(0).setPreferredWidth(700);
 		
 	}
 }
