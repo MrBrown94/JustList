@@ -3,11 +3,16 @@ package justList;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import javafx.scene.input.KeyCode;
+
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
@@ -33,9 +38,10 @@ public class Lista extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField formRicerca;
+	private static JTextField formRicerca;
 	private JPanel lyTab;
-	private JTable tbIngrosso;
+	private static JTable tbIngrosso;
+	private static Search search = null;
 	
 	/**
 	 * Launch the application.
@@ -44,7 +50,7 @@ public class Lista extends JFrame {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
+				try {					
 					DbManager dbRead = new DbManager();
 					Object[][] elements  = dbRead.getAllData();
 					Lista frame = new Lista(elements);
@@ -99,16 +105,6 @@ public class Lista extends JFrame {
 				if(formRicerca.getText().equals("Ricerca")) {
 					
 					formRicerca.setText("");
-				}
-			}
-		});
-		formRicerca.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				
-				if(!(formRicerca.getText().equals("Ricerca") || formRicerca.getText().equals(""))){
-					
-					Search search = new Search(tbIngrosso, formRicerca);
 				}
 			}
 		});
@@ -169,7 +165,14 @@ public class Lista extends JFrame {
 		tableSettings(elements);
 		formRicerca.setFocusable(false);
 		tbIngrosso.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-
+		
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		tbIngrosso.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
+		
+		search = new Search(tbIngrosso, formRicerca);
+		search.run();
 	}
 	
 	
@@ -177,16 +180,26 @@ public class Lista extends JFrame {
 	public void tableSettings(Object[][] elements) {
 		
 		tbIngrosso.setAutoResizeMode(5);
-		
-		tbIngrosso.setModel(new DefaultTableModel(
+
+		tbIngrosso.setModel(new DefaultTableModel (
 			elements,
 			new String[] {
-				"Descrizione", "Capacità", "Prezzo"
+				"Descrizione", "Prezzo"
 			}) {
 			
 			public boolean isCellEditable(int row, int column) {       
 			       return false;
 			}
+				
+			public Class<?> getColumnClass(int column) {
+	             Class<?> returnValue;
+	             if ((column >= 0) && (column < getColumnCount())) {
+	               returnValue = getValueAt(0, column).getClass();
+	             } else {
+	               returnValue = Object.class;
+	             }
+	             return returnValue;
+	           }
 			});
 		
 		tbIngrosso.getColumnModel().getColumn(0).setPreferredWidth(1200);

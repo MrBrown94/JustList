@@ -93,7 +93,7 @@ public class DbManager {
 	//Get Info Vini
 	public Object[][] getAllData() {
 		
-		Object[][] tb = new Object[countVini()][3];
+		Object[][] tb = new Object[countVini()][2];
 		int count = 0;
 		
 		try {
@@ -103,8 +103,7 @@ public class DbManager {
 			while (rs.next()){
 				
 				tb[count][0]=rs.getString(2); //Descrizione
-				tb[count][1]=rs.getString(10); //Quantità
-				tb[count][2]=rs.getString(15); //Prezzo
+				tb[count][1]=rs.getString(14); //Prezzo
 				count++;
 			}
 			
