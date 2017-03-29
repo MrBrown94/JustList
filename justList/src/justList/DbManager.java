@@ -1,7 +1,5 @@
 package justList;
 
-import java.awt.Dimension;
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
@@ -9,7 +7,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Vector;
 
 public class DbManager {
 	
@@ -62,7 +59,7 @@ public class DbManager {
 	    
 	    path = path.replaceAll("bin", "");
 	    path = path.replace("\\", "/");
-	    path += "db/db.mdb;memory=false";
+	    path += "/db/db.mdb;memory=false";
 	}
 	
 	
@@ -98,9 +95,6 @@ public class DbManager {
 		Object[][] tb = new Object[countVini()][2];
 		int count = 0;
 		
-		progressBar progress = new progressBar(countVini);
-		progress.setVisible(true);
-		
 		try {
 			st.execute("SELECT * FROM articoli");
 			rs = st.getResultSet();
@@ -110,11 +104,7 @@ public class DbManager {
 				tb[count][0]=rs.getString(2); //Descrizione
 				tb[count][1]=rs.getString(14); //Prezzo
 				count++;
-				
-				progress.prog(count);
 			}
-			
-			progress.dispatchEvent(new WindowEvent(progress, WindowEvent.WINDOW_CLOSING));
 			
 			return tb;
 		} catch (SQLException e) {
